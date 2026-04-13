@@ -62,10 +62,20 @@ const App = {
       backdrop.classList.remove('active');
     };
 
-    if (toggle) toggle.addEventListener('click', () => {
+    const toggleHandler = (e) => {
+      e.preventDefault();
+      e.stopPropagation();
       sidebar.classList.contains('open') ? closeNav() : openNav();
-    });
-    if (backdrop) backdrop.addEventListener('click', closeNav);
+    };
+
+    if (toggle) {
+      toggle.addEventListener('click', toggleHandler);
+      toggle.addEventListener('touchend', toggleHandler);
+    }
+    if (backdrop) {
+      backdrop.addEventListener('click', closeNav);
+      backdrop.addEventListener('touchend', closeNav);
+    }
 
     sidebar.querySelectorAll('.nav-item').forEach(item => {
       item.addEventListener('click', closeNav);
