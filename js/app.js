@@ -4,10 +4,14 @@ const App = {
 
   init() {
     this.loadState();
+    this.applyTheme();
     this.bindNav();
     this.bindMobileNav();
     this.route(location.hash.slice(1) || 'dashboard');
     window.addEventListener('hashchange', () => this.route(location.hash.slice(1)));
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+      if (this.getTheme() === 'auto') this.applyTheme();
+    });
     this.updateStreakDisplay();
   },
 
@@ -1700,6 +1704,18 @@ const App = {
 
       <div class="card">
         <div class="setting-group">
+          <label>Appearance</label>
+          <p class="setting-description">Switch between light and dark mode.</p>
+          <div class="flex gap-12 mt-12">
+            <button class="btn ${this.getTheme() === 'light' ? 'btn-primary' : 'btn-secondary'}" onclick="App.setTheme('light')">Light</button>
+            <button class="btn ${this.getTheme() === 'dark' ? 'btn-primary' : 'btn-secondary'}" onclick="App.setTheme('dark')">Dark</button>
+            <button class="btn ${this.getTheme() === 'auto' ? 'btn-primary' : 'btn-secondary'}" onclick="App.setTheme('auto')">Auto</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="setting-group">
           <label>Data Management</label>
           <p class="setting-description">Your data is stored locally in your browser. Nothing is sent to any server except the Claude API for feedback.</p>
           <div class="flex gap-12 mt-12">
@@ -1716,6 +1732,26 @@ const App = {
         </div>
       </div>
     `;
+  },
+
+  getTheme() {
+    return localStorage.getItem('articulate_theme') || 'light';
+  },
+
+  setTheme(mode) {
+    localStorage.setItem('articulate_theme', mode);
+    this.applyTheme();
+    this.renderSettings();
+  },
+
+  applyTheme() {
+    const mode = this.getTheme();
+    if (mode === 'auto') {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      document.documentElement.setAttribute('data-theme', prefersDark ? 'dark' : 'light');
+    } else {
+      document.documentElement.setAttribute('data-theme', mode);
+    }
   },
 
   saveApiKey() {

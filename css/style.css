@@ -31,6 +31,62 @@
   --transition: 0.2s ease;
 }
 
+[data-theme="dark"] {
+  --bg: #121218;
+  --bg-card: #1c1c24;
+  --bg-sidebar: #0a1a1c;
+  --bg-sidebar-hover: #112527;
+  --bg-sidebar-active: #183133;
+  --bg-input: #22222c;
+  --bg-code: #1e1e26;
+  --text: #e4e4e8;
+  --text-secondary: #9a9aa8;
+  --text-sidebar: #7bb8bc;
+  --text-sidebar-active: #ffffff;
+  --accent: #34ccc9;
+  --accent-light: #1a2e2e;
+  --accent-dark: #28b0ad;
+  --success: #3dc47f;
+  --success-light: #162a1f;
+  --warning: #f0b830;
+  --warning-light: #2a2410;
+  --danger: #e5565e;
+  --danger-light: #2c1618;
+  --border: #2c2c38;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.2);
+  --shadow-md: 0 4px 12px rgba(0,0,0,0.3);
+  --shadow-lg: 0 8px 30px rgba(0,0,0,0.4);
+}
+
+[data-theme="dark"] textarea.writing-area {
+  background: var(--bg-card);
+  border-color: var(--border);
+  color: var(--text);
+}
+
+[data-theme="dark"] .welcome-card {
+  background: linear-gradient(135deg, #1a6e6c, #22908d);
+}
+
+[data-theme="dark"] .chat-bubble.user {
+  background: var(--accent-dark);
+}
+
+[data-theme="dark"] .rewrite {
+  background: var(--bg-input);
+  border-left-color: var(--accent);
+}
+
+[data-theme="dark"] .assessment-option:hover,
+[data-theme="dark"] .assessment-option.selected {
+  background: var(--accent-light);
+  border-color: var(--accent);
+}
+
+[data-theme="dark"] mark {
+  background: rgba(240, 184, 48, 0.2);
+}
+
 * { margin: 0; padding: 0; box-sizing: border-box; }
 
 body {
